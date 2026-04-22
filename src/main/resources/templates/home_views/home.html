@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="~{/fragments/head :: head}">
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img th:src="@{images/hero-bg.jpg}" alt="">
+    </div>
+    <!-- header section strats -->
+    <header th:replace="~{/fragments/header :: header}">
+  </div>
+
+  <!-- about section -->
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="posts" th:each="post : ${posts}">
+        <h3><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">title</a></h3>
+        <h5 th:text="'Author: '+${post.account.firstName} + 
+        ' | Created at: '+${#temporals.format(post.createdAt, 'yyyy-mm-dd HH:mm')}
+        + '| updated on: '+${#temporals.format(post.updatedOn, 'yyyy-mm-dd HH:mm')} "></h5>
+        <h4 th:utext="${post.body}">body</h4>
+        <hr color="grey">
+      </div>
+    </div>
+  </section>
+  <!-- end about section -->
+
+  <!-- footer section -->
+  <footer th:replace="~{/fragments/footer :: footer}">
+    <!-- footer section -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+    <script>
+      ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+          console.error(error);
+        });
+    </script>
+</body>
+
+</html>
